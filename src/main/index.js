@@ -18,13 +18,13 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 330,
+    height: 340,
     useContentSize: true,
-    width: 430+280,
-    transparent: true,
+    width: 440,
+    transparent: true,//窗口透明
     frame: false,
     resizable: false,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
   })
 
   mainWindow.loadURL(winURL)

@@ -11,6 +11,9 @@
 </script>
 
 <style>
+html, body {
+    background: rgba(0, 0, 0, 0);
+}
   body {
     font-family: 'Source Sans Pro', sans-serif;
     -webkit-app-region: drag;
