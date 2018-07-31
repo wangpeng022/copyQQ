@@ -17,6 +17,7 @@ html, body {
   body {
     font-family: 'Source Sans Pro', sans-serif;
     -webkit-app-region: drag;
+    -webkit-user-select: none;
   }
   .iconfont{
     color: rgb(170, 174, 190);
