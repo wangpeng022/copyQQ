@@ -30,7 +30,7 @@
           <i class="iconfont icon-tianjialianxiren"></i>
         </div>
         <div class="middle">
-          <span class="btnLg">登录</span>
+          <span class="btnLg" @click="openMainPage">登&nbsp;&nbsp;&nbsp;&nbsp;录</span>
         </div>
         <div class="right">
           <i class="iconfont icon-erweima1"></i>
@@ -44,7 +44,16 @@
           <i class="iconfont icon-guanbi" @click="close"></i>
         </div>
       </div>
-      <i-button @click="change" style="-webkit-app-region: no-drag;">取消</i-button>
+      <main>
+        <p>lalalallalaalallaalalalal</p>
+        <p>lalalallalaalallaalalalal</p>
+        <p>lalalallalaalallaalalalal</p>
+        <p>lalalallalaalallaalalalal</p>
+      </main>
+      <footer>
+        <i-button id='do_btn' @click="change" style="-webkit-app-region: no-drag;">取消</i-button>
+        <i-button id='canl_btn' @click="change" style="-webkit-app-region: no-drag;">确定</i-button>
+      </footer>
     </div>
   </transition-group>
 </template>
@@ -52,7 +61,10 @@
 <script>
 import { Button, Input } from "iview";
 import electron from "electron";
+import mainPage from './mainPage.vue'
 const ipc = require("electron").ipcRenderer;
+const BrowserWindow = require("electron").remote.BrowserWindow;
+const path = require("path");
 export default {
   name: "login",
   components: {},
@@ -74,7 +86,32 @@ export default {
     },
     change() {
       this.ctrl_change = !this.ctrl_change;
+    },
+    creatWindowfn(event) {
+        const modalPath = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/mainPage`
+  : `file://${__dirname}/mainPage`
+
+        // alert(mainPage);
+
+        let win = new BrowserWindow(
+          {
+            width: 755,
+            height: 602,
+            frame: false
+          });
+        win.on("close", function() {
+          win = null;
+        });
+        win.loadURL(modalPath);
+        win.show();
+    },
+    openMainPage(){
+      ipc.send("window-resize");
+      // this.creatWindowfn(event);
+      this.$router.push("/mainPage")
     }
+
   }
 };
 </script>
@@ -89,7 +126,7 @@ export default {
 }
 
 #wrapper,.back{
-  /* position: relative; */
+  position: absolute;
   margin: 5px;
   height: 330px;
   width: 430px;
@@ -97,6 +134,8 @@ export default {
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+  -webkit-backface-visibility: hidden;
+  -webkit-app-region: drag;
 }
 #wrapper .head,.back .head{
   width: 100%;
@@ -104,20 +143,20 @@ export default {
   background: url("../../../static/imgs/loginLogo.png") no-repeat;
   background-size: 100% 100%;
 }
-#wrapper .btns {
+#wrapper .btns,.back .btns{
   float: right;
   padding: 10px;
   cursor: default;
 }
-#wrapper .btns i {
+#wrapper .btns i ,.back .btns i {
   margin: 0 2px;
   padding: 0 2px;
   -webkit-app-region: no-drag;
 }
-#wrapper .btns i:hover {
+#wrapper .btns i:hover,.back .btns i:hover {
   color: #fff;
 }
-#wrapper .btns i.icon-guanbi:hover {
+#wrapper .btns i.icon-guanbi:hover,.back .btns i.icon-guanbi:hover  {
   background-color: #fc4a2d;
   border-radius: 2px;
 }
@@ -192,6 +231,7 @@ export default {
   background-color: #00a3ff;
   border-radius: 4px;
   text-align: center;
+  color: #fff;
 }
 #wrapper footer .middle .btnLg:hover {
   background-color: #3cc3f5;
@@ -221,9 +261,32 @@ export default {
 
 /* 背面 */
 .back{
-
+  /* opacity: 1; */
+  border-bottom: 1px solid #A0B1BE;
 }
-
+.back main{
+  position: absolute;
+  top: 0;
+  height: 296px;
+  width: 430px;
+  padding: 60px 20px 0;
+  background: linear-gradient(rgba(255, 255, 255, 0)0%, #EBF2F9 17%);
+}
+.back footer{
+  position: absolute;
+  bottom: 0;
+  height: 33px;
+  width: 430px;
+  background-color: #CDE2F2;
+  /* border-bottom: 1px solid #A0B1BE; */
+}
+.back footer #do_btn,.back footer #canl_btn{
+  width: 65px;
+  height: 25px;
+  float: right;
+  margin: 3px 10px;
+  padding: 3px 15px;
+}
 /* 动画开始 */
 #app .oppo-enter-active,
 #app .oppo-leave-active {
@@ -232,7 +295,7 @@ export default {
 
 #app .oppo-enter,
 #app .oppo-leave-to {
-    transform: rotateY( -180deg ) scale(.7);
+    transform: rotateY( -180deg ) scale(.8);
     opacity: 0 ;
 }
 /* 动画结束 */

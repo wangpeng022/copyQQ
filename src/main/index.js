@@ -8,33 +8,40 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow
+let loginWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindowLogin () {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    height: 340,
-    useContentSize: true,
+  loginWindow = new BrowserWindow({
     width: 440+300,
-    transparent: true,//窗口透明
+    useContentSize: true,
+    height: 340,
+    // transparent: true,//窗口透明
     frame: false,
     resizable: false,
     alwaysOnTop: false,
   })
 
-  mainWindow.loadURL(winURL)
+  loginWindow.loadURL(winURL)
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  loginWindow.on('closed', () => {
+    loginWindow = null
   })
 }
 
-app.on('ready', createWindow)
+function resize () {
+  console.log(loginWindow);
+  loginWindow.setContentSize(755+300,602);
+  loginWindow.center();
+}
+
+// 登录窗口 事件
+app.on('ready', createWindowLogin)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -43,17 +50,24 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
+  if (createWindowLogin === null) {
+    createWindowLogin()
   }
 })
 
 //窗口最小化
 ipcMain.on('window-min',function(){
-  mainWindow.minimize();
+  loginWindow.minimize();
+})
+//窗口最大化
+ipcMain.on('window-max',function(){
+  loginWindow.maximize();
 })
 
 //关闭登录窗口
 ipcMain.on('window-close',function(){
-  mainWindow.close();
+  loginWindow.close();
 })
+
+// 改变窗口尺寸
+ipcMain.on('window-resize', resize)
