@@ -13,6 +13,9 @@
 <style>
   html, body {
       background: rgba(0, 0, 0, 0);
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
   }
   body {
     font-family: 'Source Sans Pro', sans-serif;

@@ -14,7 +14,24 @@ export default new Router({
     {
       path: '/mainPage',
       name: 'mainPage',
-      component: require('@/components/mainPage').default
+      component: require('@/components/mainPage').default,
+      children: [
+        {
+          path: '/message',
+          name: 'message',
+          component: require('@/components/message').default
+        },
+        {
+          path: '/friends',
+          name: 'friends',
+          component: require('@/components/friends').default
+        },
+        {
+          path: '/cloudFiles',
+          name: 'cloudFiles',
+          component: require('@/components/cloudFiles').default
+        },
+      ],redirect: '/message'
     },
     {
       path: '*',

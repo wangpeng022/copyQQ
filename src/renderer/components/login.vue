@@ -3,7 +3,7 @@
     <div id="wrapper" :class="{move:ctrl_change}" v-show="ctrl_change" :key="123">
       <div class="head">
         <div class="btns">
-          <i class="iconfont icon-jiantouxia"@click="change"></i>
+          <i class="iconfont icon-jiantouxia" @click="change"></i>
           <i class="iconfont icon-zuixiaohua1" @click="min"></i>
           <i class="iconfont icon-guanbi" @click="close"></i>
         </div>
@@ -87,28 +87,8 @@ export default {
     change() {
       this.ctrl_change = !this.ctrl_change;
     },
-    creatWindowfn(event) {
-        const modalPath = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080/mainPage`
-  : `file://${__dirname}/mainPage`
-
-        // alert(mainPage);
-
-        let win = new BrowserWindow(
-          {
-            width: 755,
-            height: 602,
-            frame: false
-          });
-        win.on("close", function() {
-          win = null;
-        });
-        win.loadURL(modalPath);
-        win.show();
-    },
     openMainPage(){
       ipc.send("window-resize");
-      // this.creatWindowfn(event);
       this.$router.push("/mainPage")
     }
 
@@ -116,7 +96,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
 * {

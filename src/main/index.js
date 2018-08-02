@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let loginWindow
+let loginWindow,winH,winW
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -21,9 +21,9 @@ function createWindowLogin () {
     width: 440+300,
     useContentSize: true,
     height: 340,
-    // transparent: true,//窗口透明
+    transparent: true,//窗口透明
     frame: false,
-    resizable: false,
+    resizable: true,
     alwaysOnTop: false,
   })
 
@@ -35,8 +35,7 @@ function createWindowLogin () {
 }
 
 function resize () {
-  console.log(loginWindow);
-  loginWindow.setContentSize(755+300,602);
+  loginWindow.setContentSize(765+300,612);
   loginWindow.center();
 }
 
@@ -61,7 +60,10 @@ ipcMain.on('window-min',function(){
 })
 //窗口最大化
 ipcMain.on('window-max',function(){
-  loginWindow.maximize();
+  loginWindow.maximize()
+})
+ipcMain.on('window-unmax',function(){
+  loginWindow.unmaximize()
 })
 
 //关闭登录窗口
