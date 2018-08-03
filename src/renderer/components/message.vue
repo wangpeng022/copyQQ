@@ -34,19 +34,25 @@
 </script>
 <style scoped>
     .message{
+        position: relative;
         width: 100%;
         height: 100%;
+        padding-left: 250px;
     }
     aside{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
         width: 250px;
         height: 100%;
         background-color: #fafafa;
         overflow-x: hidden;
         overflow-y: auto;
-        scrollbar-base-color: transparent;
+        /* scrollbar-base-color: transparent;
         scrollbar-darkshadow-color: transparent;
         scrollbar-highlight-color: transparent;
-        scrollbar-face-color: transparent;
+        scrollbar-face-color: transparent; */
     }
     aside:hover{
         /* overflow-y: auto; */
@@ -93,5 +99,9 @@
         padding: 10px 0 15px 0;
         margin-right: 10px;
 
+    }
+    main{
+        display: inline-block;
+        width: 100%;
     }
 </style>

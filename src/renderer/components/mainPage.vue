@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content" ref="content">
         <header>
             <div class="before">
                 <div class="poli"></div>
@@ -27,7 +27,7 @@
                 <i class="iconfont icon-guanbi" @click="close"></i>
             </div>
         </header>
-        <main>
+        <main ref="mainP">
             <router-view></router-view>
         </main>
     </div>
@@ -42,8 +42,11 @@ export default {
   data() {
     return {
         isMax: 0,
+        winHight: 200
     };
   },
+  computed: {
+        },
   methods: {
     min() {
       ipc.send("window-min");
@@ -60,6 +63,16 @@ export default {
     close() {
       ipc.send("window-close");
     },
+    setH(){
+        this.winHight = document.documentElement.clientHeight;
+        this.$refs.content.style.height = this.winHight-10 + 'px';
+    }
+  },
+  mounted () {
+    this.setH();
+    window.onresize = ()=> {
+        this.setH();
+    };
   }
 };
 </script>
@@ -69,17 +82,21 @@ export default {
 .content ::-webkit-scrollbar-thumb:vertical:hover { background-color: #969696; border: none; }
 .content ::-webkit-scrollbar-thumb:hover { background-color: #969696; border: none; }
 .content {
-  /* width: 755px; */
-  height: 602px;
-  width: calc(100%-10px);
-  /* height: calc(100%-10px); */
-  margin: 5px;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
-  /* background-color: #c2c2c2; */
+    position: relative;
+    /* width: 755px; */
+    /* height: 602px; */
+    width: calc(100%-10px);
+    padding-top: 55px;
+    margin: 5px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    /* background-color: #c2c2c2; */
 }
 .content header {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -181,5 +198,6 @@ export default {
 .content main{
     width: 100%;
     height: 100%;
+    background-color: #fff;
 }
 </style>

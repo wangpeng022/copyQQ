@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let loginWindow,winH,winW
+let loginWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -18,12 +18,13 @@ function createWindowLogin () {
    * Initial window options
    */
   loginWindow = new BrowserWindow({
-    width: 440+300,
-    useContentSize: true,
+    width: 440,
     height: 340,
-    transparent: true,//窗口透明
+    useContentSize: true,
     frame: false,
-    resizable: true,
+    transparent: true,//窗口透明
+
+    resizable: false,
     alwaysOnTop: false,
   })
 
@@ -32,10 +33,21 @@ function createWindowLogin () {
   loginWindow.on('closed', () => {
     loginWindow = null
   })
+
+  loginWindow.on('resize', function(){
+    // console.log(loginWindow.getSize());
+    // ipcMain.winW = loginWindow.getSize()[0];
+    // ipcMain.winH = loginWindow.getSize()[1];
+  })
+
 }
 
-function resize () {
-  loginWindow.setContentSize(765+300,612);
+function resizeW () {
+  loginWindow.setContentSize(765,612);
+    //   minWidth: 475,
+    // minHeight: 600,
+  // console.log(loginWindow.minWidth);
+
   loginWindow.center();
 }
 
@@ -53,6 +65,8 @@ app.on('activate', () => {
     createWindowLogin()
   }
 })
+
+
 
 //窗口最小化
 ipcMain.on('window-min',function(){
@@ -72,4 +86,6 @@ ipcMain.on('window-close',function(){
 })
 
 // 改变窗口尺寸
-ipcMain.on('window-resize', resize)
+ipcMain.on('window-resize', resizeW)
+
+

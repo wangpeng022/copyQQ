@@ -11,6 +11,7 @@
 </script>
 
 <style>
+@import url("../../static/css/font.css");
   html, body {
       background: rgba(0, 0, 0, 0);
       height: 100%;

@@ -88,6 +88,8 @@ export default {
       this.ctrl_change = !this.ctrl_change;
     },
     openMainPage(){
+      // console.log(winW);
+
       ipc.send("window-resize");
       this.$router.push("/mainPage")
     }
@@ -98,13 +100,6 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 #wrapper,.back{
   position: absolute;
   margin: 5px;
@@ -128,7 +123,7 @@ export default {
   padding: 10px;
   cursor: default;
 }
-#wrapper .btns i ,.back .btns i {
+#wrapper .btns i,.back .btns i{
   margin: 0 2px;
   padding: 0 2px;
   -webkit-app-region: no-drag;
@@ -212,6 +207,7 @@ export default {
   border-radius: 4px;
   text-align: center;
   color: #fff;
+  cursor: pointer;
 }
 #wrapper footer .middle .btnLg:hover {
   background-color: #3cc3f5;
