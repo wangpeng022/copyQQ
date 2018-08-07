@@ -17,8 +17,10 @@
           <br/>
           <Input v-model="password" id="password" placeholder="密码" style="width: 193px"></Input>
           <br/>
-          <Checkbox id="remb_pw" v-model="remb_pw">记住密码</Checkbox>
-          <Checkbox id="auto_login" v-model="auto_login">自动登录</Checkbox>
+          <div class="check">
+            <Checkbox id="remb_pw" v-model="remb_pw">记住密码</Checkbox>
+            <Checkbox id="auto_login" v-model="auto_login">自动登录</Checkbox>
+          </div>
         </div>
         <div class="right">
           <span>注册账号</span>
@@ -43,13 +45,13 @@
           <i class="iconfont icon-zuixiaohua1" @click="min"></i>
           <i class="iconfont icon-guanbi" @click="close"></i>
         </div>
+        <main>
+          <p>lalalallalaalallaalalalal</p>
+          <p>lalalallalaalallaalalalal</p>
+          <p>lalalallalaalallaalalalal</p>
+          <p>lalalallalaalallaalalalal</p>
+        </main>
       </div>
-      <main>
-        <p>lalalallalaalallaalalalal</p>
-        <p>lalalallalaalallaalalalal</p>
-        <p>lalalallalaalallaalalalal</p>
-        <p>lalalallalaalallaalalalal</p>
-      </main>
       <footer>
         <i-button id='do_btn' @click="change" style="-webkit-app-region: no-drag;">取消</i-button>
         <i-button id='canl_btn' @click="change" style="-webkit-app-region: no-drag;">确定</i-button>
@@ -112,7 +114,7 @@ export default {
   -webkit-backface-visibility: hidden;
   -webkit-app-region: drag;
 }
-#wrapper .head,.back .head{
+#wrapper .head{
   width: 100%;
   height: 180px;
   background: url("../../../static/imgs/loginLogo.png") no-repeat;
@@ -237,16 +239,21 @@ export default {
 
 /* 背面 */
 .back{
-  /* opacity: 1; */
   border-bottom: 1px solid #A0B1BE;
 }
-.back main{
+.back .head{
+  width: 100%;
+  height: 297px;
+  background:  linear-gradient(rgba(255, 255, 255, 0)0%, #EBF2F9 17%) ,url("../../../static/imgs/loginLogo.png") no-repeat;
+  background-size: 100% 100%;
+}
+.back .head main{
   position: absolute;
-  top: 0;
-  height: 296px;
-  width: 430px;
-  padding: 60px 20px 0;
-  background: linear-gradient(rgba(255, 255, 255, 0)0%, #EBF2F9 17%);
+  top: 65px;
+  left: 0;
+  width: 100%;
+  height: 100%-97px;
+  padding: 0 20px;
 }
 .back footer{
   position: absolute;
