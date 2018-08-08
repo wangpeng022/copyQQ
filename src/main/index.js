@@ -23,7 +23,7 @@ function createWindowLogin () {
     useContentSize: true,
     frame: false,
     transparent: true,//窗口透明
-    resizable: false,
+    // resizable: false,
     alwaysOnTop: false,
   })
 

@@ -35,9 +35,17 @@
           <span class="btnLg" @click="openMainPage">登&nbsp;&nbsp;&nbsp;&nbsp;录</span>
         </div>
         <div class="right">
-          <i class="iconfont icon-erweima1"></i>
+          <i class="iconfont icon-erweima1" @click="showCodeImg"></i>
         </div>
       </footer>
+      <div class="codeImg" v-show="codeImg">
+        <p>用<a href="#">TIM手机版</a>扫描二维码安全登录</p>
+        <div class="img">
+          <div class="left"></div>
+          <div class="right"></div>
+        </div>
+        <div class="btnLg" @click="closeCodeImg">返&nbsp;&nbsp;&nbsp;&nbsp;回</div>
+      </div>
     </div>
     <div class="back" v-show="!ctrl_change" :key="321">
       <div class="head">
@@ -76,7 +84,8 @@ export default {
       password: "",
       remb_pw: "",
       auto_login: "",
-      ctrl_change: 1
+      ctrl_change: 1,
+      codeImg: 0
     };
   },
   methods: {
@@ -91,11 +100,15 @@ export default {
     },
     openMainPage(){
       // console.log(winW);
-
       ipc.send("window-resize");
       this.$router.push("/mainPage")
+    },
+    showCodeImg(){
+      this.codeImg = 1;
+    },
+    closeCodeImg(){
+      this.codeImg = 0;
     }
-
   }
 };
 </script>
@@ -121,9 +134,12 @@ export default {
   background-size: 100% 100%;
 }
 #wrapper .btns,.back .btns{
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 10px;
   cursor: default;
+  z-index: 50;
 }
 #wrapper .btns i,.back .btns i{
   margin: 0 2px;
@@ -200,10 +216,9 @@ export default {
   flex: 2;
   display: flex;
 }
-#wrapper footer .middle .btnLg {
-  flex: 1;
+
+#wrapper .btnLg{
   line-height: 30px;
-  margin-bottom: 10px;
   -webkit-app-region: no-drag;
   background-color: #00a3ff;
   border-radius: 4px;
@@ -211,7 +226,60 @@ export default {
   color: #fff;
   cursor: pointer;
 }
-#wrapper footer .middle .btnLg:hover {
+#wrapper footer .middle .btnLg{
+  flex: 1;
+  margin-bottom: 10px;
+}
+#wrapper .codeImg{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 70px 0 45px;
+}
+#wrapper .codeImg p{
+  color: #000;
+  font-size: 13px;
+}
+#wrapper .codeImg .img{
+  width: 100%;
+  height: 100%;
+}
+#wrapper .codeImg .img .left{
+  position: absolute;
+  top: 108px;
+  left: 135px;
+  width: 120px;
+  height: 130px;
+  margin: 20px;
+  background: url("../../../static/imgs/code.png") center center no-repeat;
+}
+#wrapper .codeImg .img .right{
+  position: absolute;
+  top: 100px;
+  right: 44px;
+  opacity: 0;
+  width: 170px;
+  height: 180px;
+  background: url("../../../static/imgs/codeR.png") center center no-repeat;
+}
+#wrapper .codeImg .img:hover .left{
+  left: 63px;
+  transition: left .5s;
+}
+#wrapper .codeImg .img:hover .right{
+  transition: opacity .3s;
+  opacity: 1;
+}
+#wrapper .codeImg .btnLg{
+  position: absolute;
+  bottom: 12px;
+  left: 117px;
+  width: 196px;
+  /* padding: 0; */
+}
+
+
+#wrapper .btnLg:hover {
   background-color: #3cc3f5;
 }
 #wrapper footer .left i,
@@ -235,6 +303,14 @@ export default {
 #wrapper footer .right i {
   float: right;
   font-size: 18px;
+}
+#wrapper .codeImg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0)0%, #EBF2F9 15%);
 }
 
 /* 背面 */
