@@ -188,11 +188,20 @@ export default {
 }
 #remb_pw,
 #auto_login {
+  display: inline-block;
   color: rgb(161, 164, 167);
 }
-#auto_login {
-  margin: 4px 0 0 53px;
+.check{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 193px;
+  height: 17px;
+  margin-top: 5px;
 }
+/* #auto_login {
+  margin: 4px 0 0 53px;
+} */
 #wrapper main .right span {
   color: #2786e4;
   -webkit-app-region: no-drag;

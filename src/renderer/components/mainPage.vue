@@ -21,7 +21,7 @@
                 </router-link>
             </div>
             <div class="btns">
-                <i class="iconfont icon-caidan1"></i>
+                <i class="iconfont icon-caidan1" @click="beling"></i>
                 <i class="iconfont icon-zuixiaohua1" @click="min"></i>
                 <i class="iconfont icon-fangxing" @click="max"></i>
                 <i class="iconfont icon-guanbi" @click="close"></i>
@@ -66,6 +66,9 @@ export default {
     setH(){
         this.winHight = document.documentElement.clientHeight;
         this.$refs.content.style.height = this.winHight-10 + 'px';
+    },
+    beling(){
+        ipc.send("tray-beling");
     }
   },
   mounted () {
