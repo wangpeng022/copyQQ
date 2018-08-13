@@ -19,7 +19,7 @@
             </ul>
         </aside>
         <main>
-            右
+
         </main>
     </div>
 </template>
@@ -103,5 +103,7 @@
     main{
         display: inline-block;
         width: 100%;
+        height: 100%;
+        background: url("../../../static/imgs/empBg.png") center center no-repeat;
     }
 </style>

@@ -97,6 +97,7 @@ app.on('activate', () => {
 //托盘图标闪动belingbeling
 ipcMain.on('tray-beling',()=>{
   let flag = 0;
+  clearInterval(timer);
   timer = setInterval(()=>{
     if (flag) {
     appIcon.setImage(iconPath);
