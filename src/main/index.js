@@ -46,9 +46,8 @@ function createWindowLogin () {
 //显示托盘
  function trayShow () {
   const iconName = process.platform === 'win32' ? 'windows-icon.png' : 'iconTemplate.png'
-  if (!appIcon) {
+
     appIcon = new Tray(iconPath)
-  }
   const contextMenu = Menu.buildFromTemplate([
     {
     label: '打开面板',

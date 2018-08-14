@@ -40,7 +40,7 @@
       </footer>
       <div class="codeImg" v-show="codeImg">
         <p>用<a href="#">TIM手机版</a>扫描二维码安全登录</p>
-        <div class="img">
+        <div class="img" :class="{'move':imgMove}" @mouseover="moveStart" @mouseout="moveEnd">
           <div class="left"></div>
           <div class="right"></div>
         </div>
@@ -85,7 +85,8 @@ export default {
       remb_pw: "",
       auto_login: "",
       ctrl_change: 1,
-      codeImg: 0
+      codeImg: 0,
+      imgMove: 0
     };
   },
   methods: {
@@ -108,6 +109,12 @@ export default {
     },
     closeCodeImg(){
       this.codeImg = 0;
+    },
+    moveStart(){
+      this.imgMove = 1;
+    },
+    moveEnd(){
+      this.imgMove = 0;
     }
   }
 };
@@ -250,6 +257,7 @@ export default {
   font-size: 13px;
 }
 #wrapper .codeImg .img{
+  -webkit-app-region: no-drag;
   width: 100%;
   height: 100%;
 }
@@ -261,6 +269,7 @@ export default {
   height: 130px;
   margin: 20px;
   background: url("../../../static/imgs/code.png") center center no-repeat;
+  transition: left .5s;
 }
 #wrapper .codeImg .img .right{
   position: absolute;
@@ -270,13 +279,14 @@ export default {
   width: 170px;
   height: 180px;
   background: url("../../../static/imgs/codeR.png") center center no-repeat;
-}
-#wrapper .codeImg .img:hover .left{
-  left: 63px;
-  transition: left .5s;
-}
-#wrapper .codeImg .img:hover .right{
   transition: opacity .3s;
+}
+#wrapper .codeImg .img.move .left{
+  left: 63px;
+
+}
+#wrapper .codeImg .img.move .right{
+
   opacity: 1;
 }
 #wrapper .codeImg .btnLg{
